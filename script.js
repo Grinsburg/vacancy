@@ -14,13 +14,13 @@ window.addEventListener('load', () => {
     if (myParam1 != null) {
         lang.value = myParam1;
     } else {
-        return lang.value;
+        lang.value;
     }
 
     if (myParam2 != null) {
         city.value = myParam2;
     } else {
-        return city.value
+        city.value
     }
 
     let targetUrl = `https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json?description=${lang.value}&location=${city.value}&page=1`;
