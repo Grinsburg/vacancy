@@ -5,36 +5,31 @@ let output = document.getElementById('output');
 let data = [];
 
 idBtn.addEventListener('click', () => {
+    // const urlParams = new URLSearchParams(window.location.search);
+    // const myParam1 = urlParams.get('description');
+    // const myParam2 = urlParams.get('location');
+    // if (myParam1 != null) {
+    //     lang.value = myParam1;
+    // } else {
+    //     lang.value;
+    // }
 
-})
-window.addEventListener('load', () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const myParam1 = urlParams.get('description');
-    const myParam2 = urlParams.get('location');
-    if (myParam1 != null) {
-        lang.value = myParam1;
-    } else {
-        lang.value;
-    }
+    // if (myParam2 != null) {
+    //     city.value = myParam2;
+    // } else {
+    //     city.value
+    // }
 
-    if (myParam2 != null) {
-        city.value = myParam2;
-    } else {
-        city.value
-    }
-
-    let targetUrl = `https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json?description=${lang.value}&location=${city.value}&page=1`;
-
-    console.log(myParam1, myParam2);
+    let targetUrl = `https://jobs.github.com/positions.json?description=${lang.value}&location=${city.value}`;
     fetch(targetUrl)
         .then(function(resp) {
             return resp.json();
         })
         .then(json => {
-            json.forEach(elem => { createCard(elem.title, elem.company, elem.type, elem.location, elem.url) });
-            console.log(json);
+            json.map(elem => {
+                createCard(elem.title, elem.company, elem.type, elem.location, elem.url);
+            });
         })
-
     const createCard = (title, company, type, location, url) => {
         let card = document.createElement('div');
         let header = document.createElement('div');
@@ -65,6 +60,4 @@ window.addEventListener('load', () => {
         card.appendChild(body);
         card.appendChild(footer);
     }
-
-
 })
