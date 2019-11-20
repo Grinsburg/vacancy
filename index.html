@@ -14,15 +14,38 @@
 
 <body>
     <div class="container">
+        <div class="row p-5 justify-content-between">
+            <div class="col-12">
+                <form action="/script.js" method="get">
+                    <div class="row">
+                        <div class="col-4">
+                            <input type="text" class="form-control" id="firstInput" placeholder="Language">
+                        </div>
+                        <div class="col-4">
+                            <input type="text" class="form-control" id="secondInput" placeholder="Location">
+                        </div>
+                        <div class="col-3">
+                            <button class="btn btn-secondary" id="search">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
         <div class="row p-5">
-            <div class="col-4">
-                <input type="text" class="form-control" placeholder="Language">
-            </div>
-            <div class="col-4">
-                <input type="text" class="form-control" name="" id="" placeholder="Location">
-            </div>
-            <div class="col-4">
-                <button class="btn btn-secondary" id="search">Search</button>
+            <div class="col-12" id="output">
+                <!-- <div class="card text-start">
+                    <div class="card-header p-2">
+                        Featured
+                    </div>
+                    <div class="card-body p-2">
+                        <h5 class="card-title">Специальный заголовок</h5>
+                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                        <a href="#" class="btn btn-primary">Подробнее</a>
+                    </div>
+                    <div class="card-footer text-muted p-2">
+                        2 days ago
+                    </div>
+                </div> -->
             </div>
         </div>
     </div>
