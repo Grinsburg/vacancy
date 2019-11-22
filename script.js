@@ -66,6 +66,9 @@ const createCard = (title, company, type, location, url) => {
     card.appendChild(header);
     card.appendChild(body);
     card.appendChild(footer);
+    // let sentinel = document.createElement('div');
+    // sentinel.id = 'sentinel';
+    // output.appendChild(sentinel);
 }
 
 const getData = (data) => {
@@ -101,7 +104,6 @@ searchBtn.addEventListener('click', () => {
 });
 
 
-
 oneBtn.addEventListener('click', (position) => {
     while (position.length >= 0) {
         page = 2;
@@ -110,40 +112,21 @@ oneBtn.addEventListener('click', (position) => {
     fetchData(page++);
 })
 
-// var scroller = document.querySelector('#scroller'); //окно куда рендарятся данные
-// var sentinel = document.querySelector('#sentinel'); //заглушка после рендера
 
-// function loadItems(n) { // кол-во элементов
-//     for (var i = 0; i < n; i++) {
-//         var newItem = document.createElement('div');
-//         newItem.classList.add('item');
-//         newItem.textContent = 'Item ' + counter++;
-//         scroller.appendChild(newItem);
-//     }
-// }
+function displayEntry(entry) {
+    let entryText = document.querySelector('.entry')
+    console.log(entryText);
+    entryText.textContent = `${entry.isIntersecting}`;
+}
 
-// var intersectionObserver = new IntersectionObserver(entries => { //добавление элементов в конец страницы
-//     if (entries[0].intersectionRatio <= 0) {
-//         return;
-//     }
-//     loadItems(10);
-//     scroller.appendChild(sentinel);
-//     loadItems(5);
-// });
-// intersectionObserver.observe(sentinel);
+let callback = function(entries, observer) {
+    entries.forEach(entry => {
+        displayEntry(entry);
+    });
+};
 
-// const images = document.querySelectorAll('.animate-me');
+let observer = new IntersectionObserver(callback);
 
-// observer = new IntersectionObserver((entries) => {
-//     entries.forEach(entry => {
-//         if (entry.intersectionRatio > 0) {
-//             entry.target.classList.add('fancy');
-//         } else {
-//             entry.target.classList.remove('fancy');
-//         }
-//     });
-// });
+let target = document.querySelector("#sentinel");
 
-// images.forEach(image => {
-//     observer.observe(image);
-// });
+observer.observe(target);
