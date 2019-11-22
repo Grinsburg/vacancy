@@ -4,13 +4,13 @@ let locarion = document.getElementById('secondInput');
 let output = document.getElementById('output');
 let oneBtn = document.getElementById('one');
 let container = document.getElementById('container');
+let page = 2;
 state = {
-    position: []
-}
-console.log(state);
-const fetchData = () => {
+        position: []
+    }
+    // console.log(state);
+const fetchData = (page = 1) => {
     getParams(description.value, locarion.description);
-    getParamsPage(funcPage(2));
     let targetUrl = `https://jobs.github.com/positions.json?description=${description.value}&location=${locarion.value}&page=${page}`;
     console.log(targetUrl);
     fetch(targetUrl)
@@ -18,7 +18,7 @@ const fetchData = () => {
             return resp.json();
         })
         .then(position => {
-            console.log(position.length);
+            disabledBtn(position);
             state.position = state.position.concat(position);
             return position;
         })
@@ -26,8 +26,15 @@ const fetchData = () => {
 
 }
 
-const getLoadedData = () => {
-
+const disabledBtn = (position) => {
+    console.log(position.length);
+    if (position.length == 0) {
+        console.log('pos = 1');
+        oneBtn.disabled = true;
+        oneBtn.textContent = 'No more vacancy';
+    } else {
+        console.log('pos > 0');
+    }
 }
 
 const createCard = (title, company, type, location, url) => {
@@ -63,7 +70,7 @@ const createCard = (title, company, type, location, url) => {
 
 const getData = (data) => {
     data.map(elem => {
-        console.log(elem);
+        // console.log(elem);
         createCard(elem.title, elem.company, elem.type, elem.location, elem.url);
     })
 }
@@ -86,12 +93,6 @@ getParams = () => {
 }
 
 
-getParamsPage = (e) => {
-    return page = e;
-}
-funcPage = (e) => { return e++; }
-
-
 window.addEventListener('load', () => {
     fetchData();
 });
@@ -99,8 +100,14 @@ searchBtn.addEventListener('click', () => {
     fetchData();
 });
 
-oneBtn.addEventListener('click', () => {
-    fetchData();
+
+
+oneBtn.addEventListener('click', (position) => {
+    while (position.length >= 0) {
+        page = 2;
+        return page++;
+    }
+    fetchData(page++);
 })
 
 // var scroller = document.querySelector('#scroller'); //окно куда рендарятся данные
