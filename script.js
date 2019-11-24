@@ -119,10 +119,11 @@ function displayEntry(entry) {
     entryText.textContent = `${entry.isIntersecting}`;
 }
 
-let callback = function(entries, observer) {
+let callback = function(entries) {
     entries.forEach(entry => {
         displayEntry(entry);
     });
+    fetchData(page++);
 };
 
 let observer = new IntersectionObserver(callback);
