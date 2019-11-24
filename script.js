@@ -4,7 +4,7 @@ let locarion = document.getElementById('secondInput');
 let output = document.getElementById('output');
 let oneBtn = document.getElementById('one');
 let container = document.getElementById('container');
-let page = 2;
+let page = null;    
 state = {
         position: []
     }
