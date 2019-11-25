@@ -4,12 +4,14 @@ let locarion = document.getElementById('secondInput');
 let output = document.getElementById('output');
 let oneBtn = document.getElementById('one');
 let container = document.getElementById('container');
-let page = null;    
+let page = 0;
+console.log('Start running programm = ' + page);
 state = {
         position: []
     }
     // console.log(state);
-const fetchData = (page = 1) => {
+const fetchData = () => {
+    console.log('FetchData method running = ' + page);
     getParams(description.value, locarion.description);
     let targetUrl = `https://jobs.github.com/positions.json?description=${description.value}&location=${locarion.value}&page=${page}`;
     console.log(targetUrl);
@@ -96,9 +98,10 @@ getParams = () => {
 }
 
 
-window.addEventListener('load', () => {
-    fetchData();
-});
+// window.addEventListener('load', () => {
+//     fetchData();
+//     console.log('eventlistener');
+// });
 searchBtn.addEventListener('click', () => {
     fetchData();
 });
@@ -106,7 +109,6 @@ searchBtn.addEventListener('click', () => {
 
 oneBtn.addEventListener('click', (position) => {
     while (position.length >= 0) {
-        page = 2;
         return page++;
     }
     fetchData(page++);
@@ -114,20 +116,18 @@ oneBtn.addEventListener('click', (position) => {
 
 
 function displayEntry(entry) {
-    let entryText = document.querySelector('.entry')
-    console.log(entryText);
-    entryText.textContent = `${entry.isIntersecting}`;
+    if (entry.isIntersecting) {
+        fetchData(page++);
+        console.log('heh');
+    }
 }
 
 let callback = function(entries) {
     entries.forEach(entry => {
         displayEntry(entry);
     });
-    fetchData(page++);
 };
 
 let observer = new IntersectionObserver(callback);
-
 let target = document.querySelector("#sentinel");
-
 observer.observe(target);
