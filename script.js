@@ -39,7 +39,7 @@ const disabledBtn = (position) => {
     }
 }
 
-const createCard = (title, company, type, location, url) => {
+const createCard = (title, company, type, location, url, i) => {
     let card = document.createElement('div');
     let header = document.createElement('div');
     let body = document.createElement('div');
@@ -54,7 +54,7 @@ const createCard = (title, company, type, location, url) => {
     body.classList = 'card-body';
     h5.classList = 'card-title';
     p.classList = 'card-text';
-    p.textContent = `${company}`;
+    p.textContent = `${company} + ${i++}`;
     h5.textContent = `${title}`;
     link.href = `${url}`;
     link.classList = 'btn btn-primary';
@@ -68,9 +68,6 @@ const createCard = (title, company, type, location, url) => {
     card.appendChild(header);
     card.appendChild(body);
     card.appendChild(footer);
-    // let sentinel = document.createElement('div');
-    // sentinel.id = 'sentinel';
-    // output.appendChild(sentinel);
 }
 
 const getData = (data) => {
@@ -120,6 +117,12 @@ function displayEntry(entry) {
         fetchData(page++);
         console.log('heh');
     }
+    for (let i = 0; i < output.children.length; i++) {
+        let element = output.children[i];
+        output.removeChild(output.firstChild);
+        console.log(element);
+        console.log([i]);
+    }
 }
 
 let callback = function(entries) {
@@ -129,5 +132,5 @@ let callback = function(entries) {
 };
 
 let observer = new IntersectionObserver(callback);
-let target = document.querySelector("#sentinel");
-observer.observe(target);
+let sentinel = document.querySelector("#sentinel");
+observer.observe(sentinel);
